@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Digitales Schwarzes Brett</title>
   <link rel="stylesheet" href="style.css" />
+  <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+  if (token !== '(lW;h:(pYg[30/dggWvB.') {
+    document.body.innerHTML = 'Zugriff verweigert';
+  }
+</script>
 </head>
 
 <body>
@@ -108,3 +115,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
