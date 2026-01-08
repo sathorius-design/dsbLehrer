@@ -1,0 +1,145 @@
+// ===== 1) Datum & Uhr (lokal, sekundengenau brauchst du nicht für Beamer) =====
+function updateDateTime() {
+  const now = new Date();
+
+  const dateEl = document.getElementById("dateText");
+  const timeEl = document.getElementById("timeText");
+
+  if (dateEl) {
+    const weekday = now.toLocaleDateString("de-DE", { weekday: "short" }).replace(".", "");
+    const date = now.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "2-digit" });
+    dateEl.textContent = `${weekday} ${date}`;
+  }
+
+  if (timeEl) {
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  timeEl.textContent = `${hours}.${minutes}`;
+}
+}
+updateDateTime();
+setInterval(updateDateTime, 10000);
+
+// ===== 2) Aktuelles aus content.json (ohne Backend) + Mensa + Bilder =====
+let newsSlideTimer = null; // (NEU) Slideshow-Timer für Aktuelles-Bilder
+
+fetch("content.json")
+  .then(r => r.json())
+  .then(data => {
+    // --- Aktuelles ---
+    const wrap = document.getElementById("newsCards");
+    if (!wrap) return;
+    wrap.innerHTML = (data.news || []).map(t => `<div class="news-card">${t}</div>`).join("");
+
+    // --- Mensa ---
+    const lines = document.querySelectorAll(".mensa-box .mensa-line");
+    if (lines && lines.length) {
+      const days = ["Mo", "Di", "Mi", "Do", "Fr"];
+      const mensa = data.mensa;
+
+      days.forEach((day, i) => {
+        const line = lines[i];
+        if (!line) return;
+
+        const spans = line.querySelectorAll("span");
+        if (!spans || spans.length < 2) return;
+
+        let text = "—";
+        if (Array.isArray(mensa)) {
+          if (typeof mensa[i] === "string" && mensa[i].trim() !== "") text = mensa[i];
+        } else if (mensa && typeof mensa === "object") {
+          if (typeof mensa[day] === "string" && mensa[day].trim() !== "") text = mensa[day];
+        }
+
+        spans[1].textContent = text;
+      });
+    }
+
+    // --- Bilder rechts neben Aktuelles: Platzhalter + Slideshow (NEU) ---
+    const imgWrap = document.getElementById("newsImages");
+    if (imgWrap) {
+      // alte Slideshow stoppen (falls vorhanden)
+      if (newsSlideTimer) {
+        clearInterval(newsSlideTimer);
+        newsSlideTimer = null;
+      }
+
+      const imgsRaw = data.newsImages;
+      const imgs = Array.isArray(imgsRaw) ? imgsRaw : (typeof imgsRaw === "string" ? [imgsRaw] : []);
+      const list = imgs.filter(Boolean);
+
+      if (list.length === 0) {
+        imgWrap.innerHTML = "";
+      } else {
+        // fester Platzhalter: genau 1 <img>, nur src wechselt
+        imgWrap.innerHTML = `<img id="newsImage" src="${list[0]}" alt="">`;
+
+        // mehrere Bilder nacheinander
+        if (list.length > 1) {
+          let idx = 0;
+          newsSlideTimer = setInterval(() => {
+            const imgEl = document.getElementById("newsImage");
+            if (!imgEl) return;
+            idx = (idx + 1) % list.length;
+            imgEl.src = list[idx];
+          }, 15000); // Wechselintervall
+        }
+      }
+    }
+  })
+  .catch(() => {
+    const wrap = document.getElementById("newsCards");
+    if (wrap) wrap.innerHTML = `<div class="news-card">Aktuelles konnte nicht geladen werden.</div>`;
+  });
+
+// ===== 3) Temperatur live (ohne Key) – München (Neufreimann) =====
+// Open-Meteo: aktuelle Temperatur + Wettercode
+async function updateWeather() {
+  const tempEl = document.getElementById("tempText");
+  const textEl = document.getElementById("weatherText");
+  if (!tempEl || !textEl) return;
+
+  try {
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=48.137&longitude=11.575&current_weather=true&timezone=Europe%2FBerlin";
+    const res = await fetch(url, { cache: "no-store" });
+    const json = await res.json();
+
+    const cw = json.current_weather;
+    if (!cw) throw new Error("no current_weather");
+
+    tempEl.textContent = Math.round(cw.temperature);
+
+    const desc = weatherCodeToText(cw.weathercode);
+    textEl.textContent = desc;
+  } catch (e) {
+    textEl.textContent = "Wetter nicht verfügbar";
+  }
+}
+
+function weatherCodeToText(code) {
+  const map = {
+    0: "klar",
+    1: "überwiegend klar",
+    2: "teilweise bewölkt",
+    3: "bewölkt",
+    45: "Nebel",
+    48: "Reifnebel",
+    51: "Niesel (leicht)",
+    53: "Niesel",
+    55: "Niesel (stark)",
+    61: "Regen (leicht)",
+    63: "Regen",
+    65: "Regen (stark)",
+    71: "Schnee (leicht)",
+    73: "Schnee",
+    75: "Schnee (stark)",
+    80: "Schauer (leicht)",
+    81: "Schauer",
+    82: "Schauer (stark)",
+    95: "Gewitter"
+  };
+  return map[code] ?? "Wetter";
+}
+
+updateWeather();
+setInterval(updateWeather, 10 * 60 * 1000); // alle 10 Minuten

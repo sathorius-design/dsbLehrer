@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+
+:root{
+  --bg: #000;              /* Hintergrund schwarz */
+  --tile: #1a1a1a;         /* Kacheln dunkelgrau */
+  --tile2: #141414;        /* noch dunkler für Innenkacheln */
+  --text: #fff;
+  --muted: #cfcfcf;
+
+  /* PPT-Farben für Icon-Badges */
+  --badge-aktuell: #B7C8B6; /* aus PPT */
+  --badge-mensa:   #D78771; /* aus PPT */
+
+  --gap: 18px;
+  --radius: 4px;           /* deutlich weniger Rundung */
+}
+
+*{ box-sizing: border-box; }
+
+html, body{ height: 100%; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+/* =========================
+   PAGE: oben, unten Rest
+   ========================= */
+.page{
+  height: 100vh;
+  padding: 16px;
+  display: grid;
+  gap: var(--gap);
+
+  grid-template-rows: auto 1fr;
+
+  grid-template-areas:
+    "top"
+    "plan";
+}
+
+/* TOP Container */
+.top{
+  grid-area: top;
+
+  display: grid;
+  gap: var(--gap);
+
+  grid-template-columns: auto 2fr 1.1fr 1.1fr;
+  grid-template-areas:
+    "left middle bilder right";
+  align-items: stretch;
+}
+
+/* LEFT: Logo + Info */
+.left{
+  grid-area: left;
+
+  display: grid;
+  gap: var(--gap);
+
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "logo"
+    "info";
+}
+
+.top-logo{
+  grid-area: logo;
+  display: flex;
+  align-items: flex-start;
+}
+
+.logo{
+  height: 52px;
+  max-height: 52px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* MID / BILDER / RIGHT */
+.top-middle{ grid-area: middle; }
+.top-bilder{ grid-area: bilder; }
+.top-right{ grid-area: right; }
+
+/* =========================
+   Bottom / Plan
+   ========================= */
+.bottom{
+  grid-area: plan;
+  display: flex;
+}
+
+.bottom > .tile-plan{
+  flex: 1;
+}
+
+.tile-plan{
+  background: var(--tile);
+  border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+}
+
+.tile-plan iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #000;
+}
+
+/* =========================
+   Kacheln
+   ========================= */
+.tile{
+  background: var(--tile);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+/* Info-Kachel */
+.tile-info{
+  grid-area: info;
+  display: grid;
+  gap: 14px;
+}
+
+.info-row{
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.info-icon{
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.info-big{
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.info-small{
+  margin-top: 4px;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+/* Icon Header */
+.tile-icon-header{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.icon-badge{
+  width: 58px;
+  height: 58px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+}
+
+.icon-badge img{
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.icon-badge-aktuell{ background: var(--badge-aktuell); }
+.icon-badge-mensa{ background: var(--badge-mensa); }
+
+/* Aktuelles */
+.news-cards{
+  display: grid;
+  gap: 10px;
+}
+
+.news-card{
+  background: var(--tile2);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+/* Mensa */
+.mensa-box{
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.mensa-line{
+  background: var(--tile2);
+  border-radius: 4px;
+  padding: 10px 12px;
+
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  align-items: center;
+
+  font-size: 1.2rem;
+}
+
+.mensa-day{
+  font-weight: 400;
+}
+
+/* =========================
+   Stretch oben
+   ========================= */
+.top-middle,
+.top-right{
+  display: flex;
+  flex-direction: column;
+}
+
+.top-middle > .tile-aktuell,
+.top-right > .tile-mensa{
+  flex: 1;
+}
+
+/* NEU: Bilder-Spalte strecken wie die anderen */
+.top-bilder{
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bilder > .tile-bilder{
+  flex: 1;
+}
+
+/* =========================
+   Linke Spalte
+   ========================= */
+.top-left{
+  grid-area: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.top-left .top-logo{
+  flex: 0 0 auto;
+}
+
+.top-left .tile-info{
+  flex: 1;
+}
+
+/* =========================
+   Bilder in "Aktuelles"
+   ========================= */
+.aktuell-content{
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 10px;
+}
+
+.aktuell-images{
+  height: 160px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.aktuell-images:empty{
+  display: none;
+}
+
+.aktuell-images img{
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Verzerrung erlaubt */
+  display: block;
+}
+
+/* NEU: Titel "Bilder" unsichtbar */
+.visually-hidden{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
