@@ -1,17 +1,18 @@
 {
   "news": [
-    "Ein frohes, neues und erfolgreiches neues Jahr 2026!"
+    "nix neues!"
     
   ],
   "mensa": {
     "Mo": "---",
     "Di": "---",
-    "Mi": "Schnitzel mit Kartoffeln",
-    "Do": "Gemüsepfanne",
+    "Mi": "---",
+    "Do": "---",
     "Fr": "---"
   }
   ,
   "newsImages": [
     
   ]
+
 }
