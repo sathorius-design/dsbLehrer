@@ -1,20 +1,23 @@
 {
   "news": [
-    "-> Wahlkurs Fussball bei Herr Rudolph fällt heute aus!"
+    "- Nix Neues"
     
   ],
   "mensa": {
-    "Mo": "---",
-    "Di": "---",
-    "Mi": "---",
-    "Do": "---",
+    "Mo": "Putenleberkäse mit Kartoffelsalat - Kaiserschmarrn mit Apfelmus",
+    "Di": "Rinderfleischbällchen mit Reis - Tortellini Aurora",
+    "Mi": "Backfisch mit Kartoffelpüree - Kartoffelpuffer mit Apfelmus",
+    "Do": "Hähnchenschnitzel mit Pommes - Nudeln mit Tomatensoße",
     "Fr": "---"
   }
   ,
-  "newsImages": [
-    
+  "bilder": [
+    "bild1.jpg",
+    "bild2.jpg",
+    "bild3.jpg",
+    "bild4.jpg"
   ]
-
 }
+
 
 
