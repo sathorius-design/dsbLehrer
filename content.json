@@ -2,8 +2,8 @@
   "news": [
     "- Mi: 6abcd Englisch Schulaufgabe",
     "- Do: 7ab Deutsch Schulaufgabe",
-    "      \\t 15.00-17.30: SchiLF Zamgerauft",
-    "      \\t 18.00 LehrerInnen-Suppn"
+    "      \t 15.00-17.30: SchiLF Zamgerauft",
+    "      \t 18.00 LehrerInnen-Suppn"
     
   ],
   "mensa": {
@@ -21,6 +21,7 @@
     "bild4.jpg"
   ]
 }
+
 
 
 
