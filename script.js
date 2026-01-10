@@ -6,30 +6,39 @@ function updateDateTime() {
   const timeEl = document.getElementById("timeText");
 
   if (dateEl) {
-    const weekday = now.toLocaleDateString("de-DE", { weekday: "short" }).replace(".", "");
-    const date = now.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "2-digit" });
+    const weekday = now
+      .toLocaleDateString("de-DE", { weekday: "short" })
+      .replace(".", "");
+    const date = now.toLocaleDateString("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+    });
     dateEl.textContent = `${weekday} ${date}`;
   }
 
   if (timeEl) {
-  const hours = now.getHours().toString().padStart(2, "0");
-  const minutes = now.getMinutes().toString().padStart(2, "0");
-  timeEl.textContent = `${hours}.${minutes}`;
-}
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    timeEl.textContent = `${hours}.${minutes}`;
+  }
 }
 updateDateTime();
 setInterval(updateDateTime, 10000);
 
 // ===== 2) Aktuelles aus content.json (ohne Backend) + Mensa + Bilder =====
-let newsSlideTimer = null; // (NEU) Slideshow-Timer für Aktuelles-Bilder
+let newsSlideTimer = null; // Slideshow-Timer
 
 fetch("content.json")
-  .then(r => r.json())
-  .then(data => {
+  .then((r) => r.json())
+  .then((data) => {
     // --- Aktuelles ---
     const wrap = document.getElementById("newsCards");
-    if (!wrap) return;
-    wrap.innerHTML = (data.news || []).map(t => `<div class="news-card">${t}</div>`).join("");
+    if (wrap) {
+      wrap.innerHTML = (data.news || [])
+        .map((t) => `<div class="news-card">${t}</div>`)
+        .join("");
+    }
 
     // --- Mensa ---
     const lines = document.querySelectorAll(".mensa-box .mensa-line");
@@ -55,7 +64,7 @@ fetch("content.json")
       });
     }
 
-    // --- Bilder rechts neben Aktuelles: Platzhalter + Slideshow (NEU) ---
+    // --- Bilder in der 3. Kachel: Slideshow aus assets/ (4 Bilder, Loop) + Fade ---
     const imgWrap = document.getElementById("newsImages");
     if (imgWrap) {
       // alte Slideshow stoppen (falls vorhanden)
@@ -64,24 +73,46 @@ fetch("content.json")
         newsSlideTimer = null;
       }
 
-      const imgsRaw = data.newsImages;
-      const imgs = Array.isArray(imgsRaw) ? imgsRaw : (typeof imgsRaw === "string" ? [imgsRaw] : []);
-      const list = imgs.filter(Boolean);
+      // AUS content.json: entweder data.bilder (empfohlen) oder fallback data.newsImages
+      const imgsRaw = data.bilder ?? data.newsImages;
+
+      const imgs = Array.isArray(imgsRaw)
+        ? imgsRaw
+        : typeof imgsRaw === "string"
+        ? [imgsRaw]
+        : [];
+
+      // nur gültige Einträge, auf max. 4 begrenzen
+      const list = imgs.filter(Boolean).slice(0, 4);
+
+      // helper: immer aus assets/ laden, außer es steht schon assets/ drin
+      const toAssetPath = (p) => (p.startsWith("assets/") ? p : `assets/${p}`);
 
       if (list.length === 0) {
+        // Kachel bleibt sichtbar, nur Inhalt leer
         imgWrap.innerHTML = "";
       } else {
-        // fester Platzhalter: genau 1 <img>, nur src wechselt
-        imgWrap.innerHTML = `<img id="newsImage" src="${list[0]}" alt="">`;
+        // genau 1 <img>, nur src wechselt
+        imgWrap.innerHTML = `<img id="newsImage" src="${toAssetPath(list[0])}" alt="">`;
 
-        // mehrere Bilder nacheinander
+        // rotieren, wenn mehr als 1 Bild vorhanden
         if (list.length > 1) {
           let idx = 0;
           newsSlideTimer = setInterval(() => {
             const imgEl = document.getElementById("newsImage");
             if (!imgEl) return;
-            idx = (idx + 1) % list.length;
-            imgEl.src = list[idx];
+
+            // Fade-out
+            imgEl.classList.add("is-fading");
+
+            // Bildwechsel in der Mitte des Fades
+            setTimeout(() => {
+              idx = (idx + 1) % list.length;
+              imgEl.src = toAssetPath(list[idx]);
+
+              // Fade-in
+              imgEl.classList.remove("is-fading");
+            }, 400); // halbe Dauer der CSS-Transition (0.8s)
           }, 15000); // Wechselintervall
         }
       }
@@ -89,7 +120,8 @@ fetch("content.json")
   })
   .catch(() => {
     const wrap = document.getElementById("newsCards");
-    if (wrap) wrap.innerHTML = `<div class="news-card">Aktuelles konnte nicht geladen werden.</div>`;
+    if (wrap)
+      wrap.innerHTML = `<div class="news-card">Aktuelles konnte nicht geladen werden.</div>`;
   });
 
 // ===== 3) Temperatur live (ohne Key) – München (Neufreimann) =====
@@ -100,7 +132,8 @@ async function updateWeather() {
   if (!tempEl || !textEl) return;
 
   try {
-    const url = "https://api.open-meteo.com/v1/forecast?latitude=48.137&longitude=11.575&current_weather=true&timezone=Europe%2FBerlin";
+    const url =
+      "https://api.open-meteo.com/v1/forecast?latitude=48.137&longitude=11.575&current_weather=true&timezone=Europe%2FBerlin";
     const res = await fetch(url, { cache: "no-store" });
     const json = await res.json();
 
@@ -136,10 +169,13 @@ function weatherCodeToText(code) {
     80: "Schauer (leicht)",
     81: "Schauer",
     82: "Schauer (stark)",
-    95: "Gewitter"
+    95: "Gewitter",
   };
   return map[code] ?? "Wetter";
 }
 
 updateWeather();
 setInterval(updateWeather, 10 * 60 * 1000); // alle 10 Minuten
+
+setInterval(updateWeather, 10 * 60 * 1000); // alle 10 Minuten
+
