@@ -1,16 +1,16 @@
 {
   "news": [
-    "- Mi: 6abcd Englisch Schulaufgabe",
-    "- Do: 7ab Deutsch Schulaufgabe",
-    "      \t15.00-17.30: SchiLF Zamgerauft",
-    "      \t18.00 LehrerInnen-Suppn"
+    "- Di: Fortbildung, SOL Material Mathe, Klasse 7ab Verkehrserziehung",
+    "- Mi: 6a Theater Schauburg mit SAN, MÜL",
+    "- Do: 6bcd Theater Schauburg mit SAN, STÖ, BER, KFM"
+   
     
   ],
   "mensa": {
-    "Mo": "Putenleberkäse mit Kartoffelsalat - Kaiserschmarrn mit Apfelmus",
-    "Di": "Rinderfleischbällchen mit Reis - Tortellini Aurora",
-    "Mi": "Backfisch mit Kartoffelpüree - Kartoffelpuffer mit Apfelmus",
-    "Do": "Hähnchenschnitzel mit Pommes - Nudeln mit Tomatensoße",
+    "Mo": "Calamari Fritti mit Kartoffelsalat - Gnocchi al pomodoro",
+    "Di": "Pute mit Pilzrahmsoße, Reis - Tortellini alla panna",
+    "Mi": "Pasta mit Rindfleischbällchen, Erbsen - Gefüllte rote Paprika, Reis",
+    "Do": "Cuyrrwurst, Pommes Frittes - Pasta al pomodoro",
     "Fr": "---"
   }
   ,
@@ -21,6 +21,7 @@
     "bild4.jpg"
   ]
 }
+
 
 
 
