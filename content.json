@@ -6,10 +6,10 @@
     
   ],
   "mensa": {
-    "Mo": "Calamari Fritti, Kartoffelsalat - Gnocchi al pomodoro",
-    "Di": "Pute mit Pilzrahmsoße, Reis - Tortellini alla panna",
-    "Mi": "Pasta mit Rindfleischbällchen, Erbsen - Gefüllte rote Paprika, Reis",
-    "Do": "Cuyrrwurst, Pommes Frittes - Pasta al pomodoro",
+    ""Mo": "Fischstäbchen, Kartoffelsalat - Käsepsätzle",
+    "Di": "Rindfleischbällchen, Kartoffelpüree, - Pasta gorgonzola",
+    "Mi": "Hähnchengyros, Tzatziki - Tortellini Aurora",
+    "Do": "Chickenburger, Pommes - Pasta pomodoro",
     "Fr": "---"
   }
   ,
@@ -20,6 +20,7 @@
     "bild4.jpg"
   ]
 }
+
 
 
 
