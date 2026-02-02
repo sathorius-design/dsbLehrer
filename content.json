@@ -6,10 +6,10 @@
     
   ],
   "mensa": {
-    "Mo": "Fischstäbchen, Kartoffelsalat - Käsepsätzle",
-    "Di": "Rindfleischbällchen, Kartoffelpüree, - Pasta gorgonzola",
-    "Mi": "Hähnchengyros, Tzatziki - Tortellini Aurora",
-    "Do": "Chickenburger, Pommes - Pasta pomodoro",
+    "Mo": "Lasagne vom Rind - Gnocchi Aurora",
+    "Di": "Camembert Preiselbeeren - Pizza",
+    "Mi": "Rindfleischbällchen, Reis - Gemüse, Reis",
+    "Do": "Chicken Nuggets, Pommes - Pasta pomodoro",
     "Fr": "---"
   }
   ,
@@ -20,6 +20,7 @@
     "bild4.jpg"
   ]
 }
+
 
 
 
