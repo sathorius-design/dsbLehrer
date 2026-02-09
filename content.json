@@ -1,15 +1,15 @@
 {
   "news": [
     
-    "Heute nix neues!"
+    "Mo. 09.02: Schnupperstunden Latein, Französisch 5a und 5c"
    
     
   ],
   "mensa": {
-    "Mo": "Lasagne vom Rind - Gnocchi Aurora",
-    "Di": "Camembert Preiselbeeren - Pizza",
-    "Mi": "Rindfleischbällchen, Reis - Gemüse, Reis",
-    "Do": "Chicken Nuggets, Pommes - Pasta pomodoro",
+    "Mo": "Überraschungsgerichte",
+    "Di": "Überraschungsgerichte",
+    "Mi": "Überraschungsgerichte",
+    "Do": "Überraschungsgerichte",
     "Fr": "---"
   }
   ,
@@ -20,6 +20,7 @@
     "bild4.jpg"
   ]
 }
+
 
 
 
