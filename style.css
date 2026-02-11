@@ -339,3 +339,35 @@ body{
 #newsImages img.is-fading{
   opacity: 0;
 }
+
+
+/* ========== GLOBAL OVERLAY ========== */
+
+.global-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;                 /* über allem */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Standard: KEINE Abdunklung */
+  background: rgba(0,0,0,0);     
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease, background 300ms ease;
+}
+
+/* Nur WENN das Bild gezeigt wird: dann dimmen */
+.global-overlay.show{
+  opacity: 1;
+  background: rgba(0,0,0,0.25);
+}
+
+/* Bild in der Mitte – ca. 60 % der Anzeige */
+.global-overlay img{
+  width: 60vw;
+  height: 60vh;
+  object-fit: contain;
+}
