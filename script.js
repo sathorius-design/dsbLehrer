@@ -1,5 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+  const OVERLAY_ENABLED = false;   // <- jetzt AUS, später wieder true
   const overlay = document.getElementById("globalOverlay");
   const img = document.getElementById("globalOverlayImg");
 
@@ -209,5 +210,6 @@ updateWeather();
 setInterval(updateWeather, 10 * 60 * 1000); // alle 10 Minuten
 
 setInterval(updateWeather, 10 * 60 * 1000); // alle 10 Minuten
+
 
 
