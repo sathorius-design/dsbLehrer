@@ -1,15 +1,15 @@
-
 document.addEventListener("DOMContentLoaded", () => {
-  const OVERLAY_ENABLED = false;   // <- jetzt AUS, später wieder true
+  const OVERLAY_ENABLED = false; // <- true = an, false = aus
+
   const overlay = document.getElementById("globalOverlay");
   const img = document.getElementById("globalOverlayImg");
 
   if (!overlay || !img) return;
+  if (!OVERLAY_ENABLED) return; // <- hier wird gestoppt wenn aus
 
   const IMAGE_SRC = "/assets/bild2.jpg";
-  const SHOW_MS = 10000; // 5 Sekunden
+  const SHOW_MS = 10000;
 
-  // Bild vorladen (verhindert Ruckeln)
   const preload = new Image();
   preload.src = IMAGE_SRC;
 
@@ -19,18 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => overlay.classList.remove("show"), SHOW_MS);
   }
 
-  // Auf die nächste volle Minute synchronisieren
   const now = new Date();
   const msToNextMinute =
     (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
 
   setTimeout(() => {
-    showOverlay();               // einmal bei :00
-    setInterval(showOverlay, 60_000); // dann jede Minute wieder
+    showOverlay();
+    setInterval(showOverlay, 60_000);
   }, msToNextMinute);
 });
 
-// ===== 1) Datum & Uhr (lokal, sekundengenau brauchst du nicht für Beamer) =====
+// ===== 1) Datum & Uhr =====
 function updateDateTime() {
   const now = new Date();
 
@@ -58,8 +57,8 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 10000);
 
-// ===== 2) Aktuelles aus content.json (ohne Backend) + Mensa + Bilder =====
-let newsSlideTimer = null; // Slideshow-Timer
+// ===== 2) Aktuelles aus content.json + Mensa + Bilder =====
+let newsSlideTimer = null;
 
 fetch("content.json")
   .then((r) => r.json())
@@ -96,16 +95,14 @@ fetch("content.json")
       });
     }
 
-    // --- Bilder in der 3. Kachel: Slideshow aus assets/ (4 Bilder, Loop) + Fade ---
+    // --- Bilder Slideshow ---
     const imgWrap = document.getElementById("newsImages");
     if (imgWrap) {
-      // alte Slideshow stoppen (falls vorhanden)
       if (newsSlideTimer) {
         clearInterval(newsSlideTimer);
         newsSlideTimer = null;
       }
 
-      // AUS content.json: entweder data.bilder (empfohlen) oder fallback data.newsImages
       const imgsRaw = data.bilder ?? data.newsImages;
 
       const imgs = Array.isArray(imgsRaw)
@@ -114,38 +111,28 @@ fetch("content.json")
         ? [imgsRaw]
         : [];
 
-      // nur gültige Einträge, auf max. 4 begrenzen
       const list = imgs.filter(Boolean).slice(0, 4);
-
-      // helper: immer aus assets/ laden, außer es steht schon assets/ drin
       const toAssetPath = (p) => (p.startsWith("assets/") ? p : `assets/${p}`);
 
       if (list.length === 0) {
-        // Kachel bleibt sichtbar, nur Inhalt leer
         imgWrap.innerHTML = "";
       } else {
-        // genau 1 <img>, nur src wechselt
         imgWrap.innerHTML = `<img id="newsImage" src="${toAssetPath(list[0])}" alt="">`;
 
-        // rotieren, wenn mehr als 1 Bild vorhanden
         if (list.length > 1) {
           let idx = 0;
           newsSlideTimer = setInterval(() => {
             const imgEl = document.getElementById("newsImage");
             if (!imgEl) return;
 
-            // Fade-out
             imgEl.classList.add("is-fading");
 
-            // Bildwechsel in der Mitte des Fades
             setTimeout(() => {
               idx = (idx + 1) % list.length;
               imgEl.src = toAssetPath(list[idx]);
-
-              // Fade-in
               imgEl.classList.remove("is-fading");
-            }, 400); // halbe Dauer der CSS-Transition (0.8s)
-          }, 15000); // Wechselintervall
+            }, 400);
+          }, 15000);
         }
       }
     }
@@ -156,8 +143,7 @@ fetch("content.json")
       wrap.innerHTML = `<div class="news-card">Aktuelles konnte nicht geladen werden.</div>`;
   });
 
-// ===== 3) Temperatur live (ohne Key) – München (Neufreimann) =====
-// Open-Meteo: aktuelle Temperatur + Wettercode
+// ===== 3) Wetter (Open-Meteo, München) =====
 async function updateWeather() {
   const tempEl = document.getElementById("tempText");
   const textEl = document.getElementById("weatherText");
@@ -173,9 +159,7 @@ async function updateWeather() {
     if (!cw) throw new Error("no current_weather");
 
     tempEl.textContent = Math.round(cw.temperature);
-
-    const desc = weatherCodeToText(cw.weathercode);
-    textEl.textContent = desc;
+    textEl.textContent = weatherCodeToText(cw.weathercode);
   } catch (e) {
     textEl.textContent = "Wetter nicht verfügbar";
   }
@@ -207,9 +191,18 @@ function weatherCodeToText(code) {
 }
 
 updateWeather();
-setInterval(updateWeather, 10 * 60 * 1000); // alle 10 Minuten
+setInterval(updateWeather, 10 * 60 * 1000);
 
-setInterval(updateWeather, 10 * 60 * 1000); // alle 10 Minuten
+// ===== 4) Update-Formular =====
+document.getElementById("updateForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+  const formData = {
+    aktuelles: this.aktuelles.value,
+    bilder: this.bilder.value,
+    mensa: this.mensa.value,
+  };
+  console.log("Daten zum Speichern:", formData);
+});
 
 
 
