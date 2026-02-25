@@ -6,10 +6,10 @@
     
   ],
   "mensa": {
-    "Mo": "Überraschungsgerichte",
-    "Di": "Überraschungsgerichte",
-    "Mi": "Überraschungsgerichte",
-    "Do": "Überraschungsgerichte",
+    "Mo": "Chickenburger, Pommes - Nudeln, Tomatensoße",
+    "Di": "Putengulasch, Reis - Pasta al Pasto",
+    "Mi": "Pasta, Fleischbällchen - Kartoffelsuppe, Wiener",
+    "Do": "Fischstäbchen, Kartoffelsalat - Tortellini alla Panna",
     "Fr": "---"
   }
   ,
@@ -20,6 +20,7 @@
     "bild4.jpg"
   ]
 }
+
 
 
 
