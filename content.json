@@ -6,10 +6,10 @@
     
   ],
   "mensa": {
-    "Mo": "Chickenburger, Pommes - Nudeln, Tomatensoße",
-    "Di": "Putengulasch, Reis - Pasta al Pasto",
-    "Mi": "Pasta, Fleischbällchen - Kartoffelsuppe, Wiener",
-    "Do": "Fischstäbchen, Kartoffelsalat - Tortellini alla Panna",
+    "Mo": "Chicken Wings, Pommes - Nudeln, Tomatensoße",
+    "Di": "Putengleberkäse, Kartoffelsalat - Gnocchi Aurora",
+    "Mi": "Lasagne mit Rindfleisch - Gemüse, Reis",
+    "Do": "Rigatoni Bolognese - Rigatoni al Forno mit Käse",
     "Fr": "---"
   }
   ,
@@ -20,6 +20,7 @@
     "bild4.jpg"
   ]
 }
+
 
 
 
