@@ -1,15 +1,16 @@
 {
   "news": [
     
-    "Mi. 11.03.: Wahlkurs Robotik entfällt!"
-   
+    "Di. 24.03.: Klassen 5 E-Förder bei REI entfällt!",
+    "Mi. 25.03.: Klassen 6/7 F-Förder bei GEI entfällt!",
+    "Fr. 27.03. Kurzstundenplan, Unterrichtsende 11.45 Uhr - FROHE OSTERN"
     
   ],
   "mensa": {
-    "Mo": "Putencurrywurst, Pommes - Nudeln, Tomatensoße",
-    "Di": "Putenfrikadelle, Kartoffelpüree - Käsespätzle, Röstzwiebeln",
-    "Mi": "Bucatini, Thunfischsoße - Tortellini Emilina, Erbsen, Pilzen",
-    "Do": "Fischstäbchen, Kartoffelpüree - Rigatoni al Pesto",
+    "Mo": "Fischstäbchen, Kartoffelsalat - Käsespätzle",
+    "Di": "Chicken Wings, Pommes - Tortellini, Tomatensoße",
+    "Mi": "Gnocchi Schinken-Sahne - Buttergemüse, Reis",
+    "Do": "Schinkennudeln - Kartoffel-Gemüse-Pfanne",
     "Fr": "---"
   }
   ,
