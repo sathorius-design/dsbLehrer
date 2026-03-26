@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const OVERLAY_ENABLED = false; // <- true = an, false = aus
+  const OVERLAY_ENABLED = true; // <- true = an, false = aus
 
   const overlay = document.getElementById("globalOverlay");
   const img = document.getElementById("globalOverlayImg");
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!overlay || !img) return;
   if (!OVERLAY_ENABLED) return; // <- hier wird gestoppt wenn aus
 
-  const IMAGE_SRC = "/assets/bild2.jpg";
+  const IMAGE_SRC = "/assets/bild5.jpg";
   const SHOW_MS = 10000;
 
   const preload = new Image();
