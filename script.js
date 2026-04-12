@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const OVERLAY_ENABLED = true; // <- true = an, false = aus
+  const OVERLAY_ENABLED = false; // <- true = an, false = aus
 
   const overlay = document.getElementById("globalOverlay");
   const img = document.getElementById("globalOverlayImg");
