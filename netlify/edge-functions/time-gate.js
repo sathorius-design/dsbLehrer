@@ -14,7 +14,7 @@ export default async (request, context) => {
   const minute  = parseInt(berlin.find(p => p.type === "minute").value);
   const weekday = berlin.find(p => p.type === "weekday").value; // Mo, Di, ...
   
-  const isWeekend   = weekday === "Sa" || weekday === "So";
+  const isWeekend = weekday.startsWith("Sa") || weekday.startsWith("So");
   const timeMinutes = hour * 60 + minute;
   const isOffHours  = timeMinutes < 7 * 60 || timeMinutes >= 17 * 60;
 
