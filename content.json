@@ -1,14 +1,15 @@
 {
- "news": [
+  "news": [
   
-    "Fr. 24.04.: Klassen 6ab, Mündliche Schulaufgabe E mit IRM, FIE, REI, SAN"
+    "Mo. 27.04.: Alle Klassen, Chorprobe 14:00 bis 14:45 Uhr in der Aula",
+    "Mi. 29.09.: Wahlkurs Film bei FIE entfällt!"
     
   ],
   "mensa": {
-    "Mo": "Chicken Wings, Wedges - Käsespätzle, Röstzwiebeln",
-    "Di": "Hähnchendöner, Reis, Tsatziki - Tortellini, Aurora",
-    "Mi": "Kaiserschmarrn, Apfelmus - Kartoffelpuffer, Apfelmus",
-    "Do": "Cevapcici, Reis, - Nudeln, Aurora",
+    "Mo": "Hackbällchen, Tomatensoße, Reis - Gnocchi Pesto",
+    "Di": "Putenleberkäse, Kartoffelsalat - Käsespätzle, Gemüsepfanne",
+    "Mi": "Putenwiener, Wedges - Kartoffel, Gemüsepfanne",
+    "Do": "Hähnchendöner, Reis, Tsatsiki, - Nudeln,Tomatensoße",
     "Fr": "---"
   }
   ,
