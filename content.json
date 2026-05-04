@@ -1,15 +1,15 @@
 {
   "news": [
-  
-    "Mi 29.04.: Wahlkurs Robotik bei ROT entfällt!!",
-    "Mi. 29.04.: Wahlkurs Film bei FIE entfällt!"
+    "Di 05.05.: Klasse 5c, 1.-4. Stunde Stadtbücherei Milbertshofen mit BER, EHR",
+    "Mi 06.05.: Klasse 5e, 1.-4. Stunde Stadtbücherei Milbertshofen mit SAN, RUD",
+    "Do 07.05.: Klasse 5b, 1.-4. Stunde Stadtbücherei Milbertshofen mit MÜL, ROT"
     
   ],
   "mensa": {
-    "Mo": "Hackbällchen, Tomatensoße, Reis - Gnocchi Pesto",
-    "Di": "Putenleberkäse, Kartoffelsalat - Käsespätzle, Gemüsepfanne",
-    "Mi": "Putenwiener, Wedges - Kartoffel, Gemüsepfanne",
-    "Do": "Hähnchendöner, Reis, Tsatsiki, - Nudeln,Tomatensoße",
+    "Mo": "Dampfnudeln, Vanillesoße - Kartoffelsuppe, Putenwiener",
+    "Di": "Schwäbische Maultaschen, Salat - Tortellini, Aurora",
+    "Mi": "Fischstäbchen, Kartoffelbrei - Gefüllte Pfannenkuchen",
+    "Do": "Putencurrywurst, Pommes - Nudeln, Aurora",
     "Fr": "---"
   }
   ,
