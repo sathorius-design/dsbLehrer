@@ -1,14 +1,13 @@
 {
   "news": [
-
-    "Fr. 08.05.: Orchester und Band bei FIL entfällt!"
-    
+    "Mo. 11.05.: Klasse 5d: Schulbücherei Milbertshofen mit BER und BRI.",
+    "Mi. 13.05.: Klasse 5a: Schulbücherei Milbertshofen mit SAN und MÜL."
   ],
   "mensa": {
-    "Mo": "Dampfnudeln, Vanillesoße - Kartoffelsuppe, Putenwiener",
-    "Di": "Schwäbische Maultaschen, Salat - Tortellini, Aurora",
-    "Mi": "Fischstäbchen, Kartoffelbrei - Gefüllte Pfannenkuchen",
-    "Do": "Putencurrywurst, Pommes - Nudeln, Aurora",
+    "Mo": "Chickenburger, Pommes - Gnocchi, Tomatensoße, Mozzarella",
+    "Di": "Kaiserschmarrn, Apfelmus - Gemüse, Reis",
+    "Mi": "Nudeln al forno, Salat - Kartoffelpuffer mit Apfelmus",
+    "Do": "---",
     "Fr": "---"
   }
   ,
