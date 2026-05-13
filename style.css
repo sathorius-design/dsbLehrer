@@ -322,11 +322,17 @@ body{
 
 .station-header{
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
   padding: 0 2px 2px 2px;
   flex: 0 0 auto;
+}
+
+.station-name-block{
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
 }
 
 .station-name{
@@ -334,6 +340,13 @@ body{
   font-weight: 600;
   color: var(--text);
   letter-spacing: 0.2px;
+}
+
+.station-walk{
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0.55;
+  margin-top: 2px;
 }
 
 .station-meta{
@@ -353,7 +366,7 @@ body{
 .departure-row{
   background: var(--tile2);
   border-radius: 4px;
-  padding: 7px 10px;
+  padding: 5px 10px;
 
   display: grid;
   grid-template-columns: 48px 1fr auto;
@@ -387,25 +400,42 @@ body{
   font-size: 0.95rem;
 }
 
+.dep-times{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+
 .dep-minutes{
   text-align: right;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--text);
+  line-height: 1.1;
 }
 
 .dep-minutes .dep-delay{
   display: inline-block;
   margin-left: 4px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: #FF6B6B;
 }
 
-.dep-minutes.is-now{
+.dep-leave{
+  font-size: 0.7rem;
+  font-weight: 600;
   color: #6BCB77;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.dep-leave.is-now{
+  color: #FF6B6B;
+  font-weight: 700;
 }
 
 .dep-placeholder{

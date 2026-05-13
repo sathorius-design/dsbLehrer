@@ -163,26 +163,46 @@ function formatMinutes(m) {
   return `${m} min`;
 }
 
-function renderDepartures(listEl, departures) {
-  if (!departures || departures.length === 0) {
-    listEl.innerHTML = `<div class="dep-placeholder">Keine Abfahrten</div>`;
+function formatLeave(leaveIn) {
+  if (leaveIn === 0) return { text: "jetzt!", urgent: true };
+  return { text: `los: ${leaveIn}`, urgent: false };
+}
+
+function renderDepartures(listEl, departures, walkMin) {
+  // verpasste Abfahrten (los-Zeit < 0) ausfiltern
+  const reachable = (departures || []).filter(d => (d.minutes - walkMin) >= 0);
+
+  if (reachable.length === 0) {
+    listEl.innerHTML = `<div class="dep-placeholder">Keine erreichbaren Abfahrten</div>`;
     return;
   }
 
-  listEl.innerHTML = departures.map(d => {
+  listEl.innerHTML = reachable.slice(0, DEP_LIMIT).map(d => {
     const lineStyle = d.color ? `style="background:${d.color}"` : "";
     const minutesClass = d.minutes === 0 ? "dep-minutes is-now" : "dep-minutes";
     const delayHtml = d.delay && d.delay > 0
-      ? `<span class="dep-delay">+${d.delay}</span>`
+      ? `<span class="dep-delay">(+${d.delay})</span>`
       : "";
     const dest = (d.destination || "").replace(/</g, "&lt;");
     const line = (d.line || "").replace(/</g, "&lt;");
+
+    // Loslaufen-Zeit: bei walkMin = 0 weglassen
+    let leaveHtml = "";
+    if (walkMin > 0) {
+      const leaveIn = d.minutes - walkMin;
+      const leave = formatLeave(leaveIn);
+      const cls = leave.urgent ? "dep-leave is-now" : "dep-leave";
+      leaveHtml = `<span class="${cls}">${leave.text}</span>`;
+    }
 
     return `
       <div class="departure-row">
         <span class="dep-line" ${lineStyle}>${line}</span>
         <span class="dep-destination">${dest}</span>
-        <span class="${minutesClass}">${formatMinutes(d.minutes)}${delayHtml}</span>
+        <div class="dep-times">
+          <span class="${minutesClass}">${formatMinutes(d.minutes)}${delayHtml}</span>
+          ${leaveHtml}
+        </div>
       </div>
     `;
   }).join("");
@@ -190,18 +210,25 @@ function renderDepartures(listEl, departures) {
 
 async function fetchStation(stationEl) {
   const query = stationEl.dataset.query;
+  const walkMin = parseInt(stationEl.dataset.walk || "0", 10);
   const listEl = stationEl.querySelector(".departures-list");
   const metaEl = stationEl.querySelector(".station-meta");
+  const walkEl = stationEl.querySelector(".station-walk");
   if (!query || !listEl) return;
 
+  // Gehzeit-Hinweis im Header anzeigen
+  if (walkEl && walkMin > 0) {
+    walkEl.textContent = `${walkMin} min zu Fuß`;
+  }
+
   try {
-    const res = await fetch(`/api/mvg?q=${encodeURIComponent(query)}&limit=${DEP_LIMIT}`, {
+    const res = await fetch(`/api/mvg?q=${encodeURIComponent(query)}&limit=${DEP_LIMIT + walkMin + 3}`, {
       cache: "no-store"
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
-    renderDepartures(listEl, data.departures);
+    renderDepartures(listEl, data.departures, walkMin);
 
     if (metaEl) {
       const now = new Date();
