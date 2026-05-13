@@ -5,13 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Digitales Schwarzes Brett</title>
   <link rel="stylesheet" href="style.css" />
-  <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get('token');
-  if (token !== '(lW;h:(pYg[30/dggWvB.') {
-    document.body.innerHTML = 'Zugriff verweigert';
-  }
-</script>
+ 
 </head>
 
 <body>
@@ -74,20 +68,38 @@
         </section>
       </div>
 
-<!-- BILDER BEREICH -->
+<!-- ABFAHRTEN BEREICH (vorher Bilder) -->
       <div class="top-bilder">
-  <section class="tile tile-bilder">
-    <div class="tile-icon-header">
-      <div class="icon-badge icon-badge-bilder">
-        <img src="assets/icon-pics.png" alt="Bilder">
-      </div>
-    </div>
+        <section class="tile tile-departures">
 
-    <div class="bilder-content" id="newsImages">
-      <!-- hier kommen später Bilder rein -->
-    </div>
-  </section>
-</div>
+          <div class="departures-station"
+               data-query="Neufreimann"
+               data-label="Neufreimann">
+            <div class="station-header">
+              <span class="station-name">Neufreimann</span>
+              <span class="station-meta"></span>
+            </div>
+            <div class="departures-list">
+              <div class="dep-placeholder">Lade Abfahrten…</div>
+            </div>
+          </div>
+
+          <div class="departures-divider"></div>
+
+          <div class="departures-station"
+               data-query="Werner-Egk-Bogen"
+               data-label="Werner-Egk-Bogen">
+            <div class="station-header">
+              <span class="station-name">Werner-Egk-Bogen</span>
+              <span class="station-meta"></span>
+            </div>
+            <div class="departures-list">
+              <div class="dep-placeholder">Lade Abfahrten…</div>
+            </div>
+          </div>
+
+        </section>
+      </div>
       
       <!-- RECHTER BEREICH -->
       <div class="top-right">
@@ -116,7 +128,7 @@
     <div class="bottom">
       <section class="tile tile-plan">
         <iframe
-          src="https://gym-neufreimann.webuntis.com/WebUntis/monitor?school=gym-neufreimann&monitorType=subst&format=Lehrer%201"
+          src="https://gym-neufreimann.webuntis.com/WebUntis/monitor?school=gym-neufreimann&monitorType=subst&format=Sch%C3%BCler%201"
           title="Vertretungsplan">
         </iframe>
       </section>
@@ -126,12 +138,20 @@
 
   <script src="script.js"></script>
 
+  
 <div id="globalOverlay" class="global-overlay" aria-hidden="true">
   <img id="globalOverlayImg" alt="" src="/assets/bild2.jpg" />
 </div>
+
+
   
-</body>
+</body> 
 </html>
+
+
+
+
+
 
 
 

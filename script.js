@@ -57,9 +57,7 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 10000);
 
-// ===== 2) Aktuelles aus content.json + Mensa + Bilder =====
-let newsSlideTimer = null;
-
+// ===== 2) Aktuelles aus content.json + Mensa =====
 fetch("content.json")
   .then((r) => r.json())
   .then((data) => {
@@ -95,47 +93,6 @@ fetch("content.json")
       });
     }
 
-    // --- Bilder Slideshow ---
-    const imgWrap = document.getElementById("newsImages");
-    if (imgWrap) {
-      if (newsSlideTimer) {
-        clearInterval(newsSlideTimer);
-        newsSlideTimer = null;
-      }
-
-      const imgsRaw = data.bilder ?? data.newsImages;
-
-      const imgs = Array.isArray(imgsRaw)
-        ? imgsRaw
-        : typeof imgsRaw === "string"
-        ? [imgsRaw]
-        : [];
-
-      const list = imgs.filter(Boolean).slice(0, 4);
-      const toAssetPath = (p) => (p.startsWith("assets/") ? p : `assets/${p}`);
-
-      if (list.length === 0) {
-        imgWrap.innerHTML = "";
-      } else {
-        imgWrap.innerHTML = `<img id="newsImage" src="${toAssetPath(list[0])}" alt="">`;
-
-        if (list.length > 1) {
-          let idx = 0;
-          newsSlideTimer = setInterval(() => {
-            const imgEl = document.getElementById("newsImage");
-            if (!imgEl) return;
-
-            imgEl.classList.add("is-fading");
-
-            setTimeout(() => {
-              idx = (idx + 1) % list.length;
-              imgEl.src = toAssetPath(list[idx]);
-              imgEl.classList.remove("is-fading");
-            }, 400);
-          }, 15000);
-        }
-      }
-    }
   })
   .catch(() => {
     const wrap = document.getElementById("newsCards");
@@ -193,16 +150,98 @@ function weatherCodeToText(code) {
 updateWeather();
 setInterval(updateWeather, 10 * 60 * 1000);
 
-// ===== 4) Update-Formular =====
-document.getElementById("updateForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-  const formData = {
-    aktuelles: this.aktuelles.value,
-    bilder: this.bilder.value,
-    mensa: this.mensa.value,
-  };
-  console.log("Daten zum Speichern:", formData);
-});
+// ===== 4) Abfahrten (MVG) =====
+//
+// Holt für jede .departures-station mit data-query die nächsten Abfahrten
+// von der Edge Function /api/mvg und rendert sie in die .departures-list.
+
+const DEP_LIMIT = 4;
+const DEP_REFRESH_MS = 30 * 1000;
+
+function formatMinutes(m) {
+  if (m <= 0) return "jetzt";
+  return `${m} min`;
+}
+
+function renderDepartures(listEl, departures) {
+  if (!departures || departures.length === 0) {
+    listEl.innerHTML = `<div class="dep-placeholder">Keine Abfahrten</div>`;
+    return;
+  }
+
+  listEl.innerHTML = departures.map(d => {
+    const lineStyle = d.color ? `style="background:${d.color}"` : "";
+    const minutesClass = d.minutes === 0 ? "dep-minutes is-now" : "dep-minutes";
+    const delayHtml = d.delay && d.delay > 0
+      ? `<span class="dep-delay">+${d.delay}</span>`
+      : "";
+    const dest = (d.destination || "").replace(/</g, "&lt;");
+    const line = (d.line || "").replace(/</g, "&lt;");
+
+    return `
+      <div class="departure-row">
+        <span class="dep-line" ${lineStyle}>${line}</span>
+        <span class="dep-destination">${dest}</span>
+        <span class="${minutesClass}">${formatMinutes(d.minutes)}${delayHtml}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+async function fetchStation(stationEl) {
+  const query = stationEl.dataset.query;
+  const listEl = stationEl.querySelector(".departures-list");
+  const metaEl = stationEl.querySelector(".station-meta");
+  if (!query || !listEl) return;
+
+  try {
+    const res = await fetch(`/api/mvg?q=${encodeURIComponent(query)}&limit=${DEP_LIMIT}`, {
+      cache: "no-store"
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    renderDepartures(listEl, data.departures);
+
+    if (metaEl) {
+      const now = new Date();
+      const hh = now.getHours().toString().padStart(2, "0");
+      const mm = now.getMinutes().toString().padStart(2, "0");
+      metaEl.textContent = `${hh}:${mm}`;
+    }
+  } catch (err) {
+    listEl.innerHTML = `<div class="dep-error">Abfahrten nicht verfügbar</div>`;
+  }
+}
+
+function updateAllDepartures() {
+  const stations = document.querySelectorAll(".departures-station");
+  stations.forEach(s => fetchStation(s));
+}
+
+updateAllDepartures();
+setInterval(updateAllDepartures, DEP_REFRESH_MS);
+
+// ===== 5) Update-Formular =====
+const form = document.getElementById("updateForm");
+if (form) {
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const formData = {
+      aktuelles: this.aktuelles.value,
+      bilder: this.bilder.value,
+      mensa: this.mensa.value,
+    };
+    console.log("Daten zum Speichern:", formData);
+  });
+}
+
+
+
+
+
+
+
 
 
 
