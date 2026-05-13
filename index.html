@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Digitales Schwarzes Brett</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3" />
  
 </head>
 
@@ -72,7 +72,7 @@
       <div class="top-bilder">
         <section class="tile tile-departures">
 
-          <div class="departures-station"
+          <div class="departures-station is-active"
                data-query="Neufreimann"
                data-label="Neufreimann"
                data-walk="2">
@@ -88,8 +88,6 @@
             </div>
           </div>
 
-          <div class="departures-divider"></div>
-
           <div class="departures-station"
                data-query="Werner-Egk-Bogen"
                data-label="Werner-Egk-Bogen"
@@ -97,6 +95,22 @@
             <div class="station-header">
               <div class="station-name-block">
                 <span class="station-name">Werner-Egk-Bogen</span>
+                <span class="station-walk"></span>
+              </div>
+              <span class="station-meta"></span>
+            </div>
+            <div class="departures-list">
+              <div class="dep-placeholder">Lade Abfahrten…</div>
+            </div>
+          </div>
+
+          <div class="departures-station"
+               data-query="Maria-Probst-Straße"
+               data-label="Maria-Probst-Straße"
+               data-walk="7">
+            <div class="station-header">
+              <div class="station-name-block">
+                <span class="station-name">Maria-Probst-Straße</span>
                 <span class="station-walk"></span>
               </div>
               <span class="station-meta"></span>
@@ -144,7 +158,7 @@
 
   </div>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=3"></script>
 
   
 <div id="globalOverlay" class="global-overlay" aria-hidden="true">

@@ -157,6 +157,7 @@ setInterval(updateWeather, 10 * 60 * 1000);
 
 const DEP_LIMIT = 4;
 const DEP_REFRESH_MS = 30 * 1000;
+const CYCLE_MS = 5 * 1000;       // alle 5s zur nächsten Haltestelle wechseln
 
 function formatMinutes(m) {
   if (m <= 0) return "jetzt";
@@ -248,6 +249,24 @@ function updateAllDepartures() {
 
 updateAllDepartures();
 setInterval(updateAllDepartures, DEP_REFRESH_MS);
+
+// --- Stations-Wechsel: alle CYCLE_MS Sekunden nächste Haltestelle anzeigen
+function cycleStations() {
+  const stations = document.querySelectorAll(".departures-station");
+  if (stations.length <= 1) return;
+
+  let activeIdx = -1;
+  stations.forEach((s, i) => {
+    if (s.classList.contains("is-active")) activeIdx = i;
+  });
+
+  const nextIdx = (activeIdx + 1) % stations.length;
+  stations.forEach((s, i) => {
+    s.classList.toggle("is-active", i === nextIdx);
+  });
+}
+
+setInterval(cycleStations, CYCLE_MS);
 
 // ===== 5) Update-Formular =====
 const form = document.getElementById("updateForm");

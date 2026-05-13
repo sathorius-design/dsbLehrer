@@ -298,19 +298,30 @@ body{
    ABFAHRTEN (MVG)
    ========================= */
 .tile-departures{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  position: relative;
+  display: block;
   min-height: 0;
   overflow: hidden;
 }
 
 .departures-station{
-  flex: 1;
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
   display: flex;
   flex-direction: column;
-  min-height: 0;
   gap: 6px;
+  min-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.departures-station.is-active{
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .departures-divider{
@@ -343,10 +354,10 @@ body{
 }
 
 .station-walk{
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: var(--muted);
-  opacity: 0.55;
-  margin-top: 2px;
+  opacity: 0.9;
+  margin-top: 3px;
 }
 
 .station-meta{
