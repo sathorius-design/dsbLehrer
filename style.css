@@ -187,6 +187,28 @@ body{
 .icon-badge-mensa{ background: var(--badge-mensa); }
 .icon-badge-bilder{ background: var(--badge-bilder); }
 
+/* Icon-Reihe für Verkehrsmittel-Symbole im Abfahrten-Tile */
+.tile-icon-header-row{
+  align-items: center;
+  height: 58px;
+  gap: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.mode-icon{
+  width: 48px;
+  height: 48px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.mode-icon svg{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 /* Aktuelles */
 .news-cards{
   display: grid;
@@ -306,7 +328,7 @@ body{
 
 .departures-station{
   position: absolute;
-  top: 14px;
+  top: 82px;
   left: 14px;
   right: 14px;
   bottom: 14px;
