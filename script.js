@@ -166,7 +166,7 @@ function formatMinutes(m) {
 
 function formatLeave(leaveIn) {
   if (leaveIn === 0) return { text: "jetzt!", urgent: true };
-  return { text: `los: ${leaveIn}`, urgent: false };
+  return { text: `losgehen in: ${leaveIn} min`, urgent: false };
 }
 
 function renderDepartures(listEl, departures, walkMin) {

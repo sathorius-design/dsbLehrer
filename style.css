@@ -369,10 +369,15 @@ body{
 }
 
 .station-name{
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--text);
   letter-spacing: 0.2px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 3px 10px;
+  border-radius: 6px;
+  align-self: flex-start;
 }
 
 .station-walk{
